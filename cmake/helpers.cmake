@@ -9,7 +9,6 @@
 # CMake modules that check whether the C/C++ compiler supports a given flag
 include(CheckCCompilerFlag)
 include(CheckCXXCompilerFlag)
-include(FetchContent)
 
 # Sets ${ret} to version of program specified by ${name} in major.minor format
 function(get_program_version_major_minor name ret)
@@ -177,6 +176,8 @@ function(FetchContentCheckout_Declare SRC_DIR GIT_REPOSITORY GIT_BRANCH GIT_HASH
         WORKING_DIRECTORY ${external-content-dir})
     execute_process(COMMAND git reset --hard ${GIT_HASH}
         WORKING_DIRECTORY ${external-content-dir})
+        
+    include(FetchContent)
     FetchContent_Declare(
         ${name}
         GIT_REPOSITORY ${GIT_REPOSITORY}
