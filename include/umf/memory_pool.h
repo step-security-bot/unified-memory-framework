@@ -22,8 +22,6 @@ extern "C" {
 ///        functions
 typedef struct umf_memory_pool_t *umf_memory_pool_handle_t;
 
-struct umf_memory_pool_ops_t;
-
 /// @brief This structure comprises function pointers used by corresponding umfPool*
 ///        calls. Each memory pool implementation should initialize all function
 ///        pointers.

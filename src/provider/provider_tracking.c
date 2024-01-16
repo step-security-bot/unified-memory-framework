@@ -88,11 +88,11 @@ umfMemoryTrackerGetPool(umf_memory_tracker_handle_t hTracker, const void *ptr) {
     return (rkey + rvalue->size >= (uintptr_t)ptr) ? rvalue->pool : NULL;
 }
 
-typedef struct umf_tracking_memory_provider_t {
+struct umf_tracking_memory_provider_t {
     umf_memory_provider_handle_t hUpstream;
     umf_memory_tracker_handle_t hTracker;
     umf_memory_pool_handle_t pool;
-} umf_tracking_memory_provider_t;
+};
 
 typedef struct umf_tracking_memory_provider_t umf_tracking_memory_provider_t;
 

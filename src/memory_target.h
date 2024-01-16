@@ -12,12 +12,11 @@
 
 #include <umf/base.h>
 
+#include "memory_target_ops.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-struct umf_memory_target_ops_t;
-typedef struct umf_memory_target_ops_t umf_memory_target_ops_t;
 
 typedef struct umf_memory_target_t {
     const umf_memory_target_ops_t *ops;

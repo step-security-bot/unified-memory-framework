@@ -20,8 +20,8 @@
 
 #include "../ravl/ravl.h"
 #include "../src/memory_provider_internal.h"
+#include "../utils/utils_concurrency.h"
 #include "umf/providers/provider_coarse.h"
-#include "utils_concurrency.h"
 
 #ifndef BYTE
 #define BYTE unsigned char
@@ -1197,7 +1197,7 @@ coarse_memory_provider_get_stats(void *provider,
     return UMF_RESULT_SUCCESS;
 }
 
-struct umf_memory_provider_ops_t UMF_COARSE_MEMORY_PROVIDER_OPS = {
+umf_memory_provider_ops_t UMF_COARSE_MEMORY_PROVIDER_OPS = {
     .version = UMF_VERSION_CURRENT,
     .initialize = coarse_memory_provider_initialize,
     .finalize = coarse_memory_provider_finalize,
