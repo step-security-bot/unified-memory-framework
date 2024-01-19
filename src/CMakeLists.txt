@@ -84,6 +84,7 @@ target_include_directories(umf PUBLIC
 
 install(TARGETS umf
     EXPORT ${PROJECT_NAME}-targets
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )
 
 add_subdirectory(pool)

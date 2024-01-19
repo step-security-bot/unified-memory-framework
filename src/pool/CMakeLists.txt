@@ -24,6 +24,7 @@ if(UMF_BUILD_LIBUMF_POOL_DISJOINT)
 
     install(TARGETS disjoint_pool
         EXPORT ${PROJECT_NAME}-targets
+        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
     )
 endif()
 

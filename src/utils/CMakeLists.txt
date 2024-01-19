@@ -33,4 +33,5 @@ target_include_directories(umf_utils PUBLIC
 )
 
 install(TARGETS umf_utils
-        EXPORT ${PROJECT_NAME}-targets)
+        EXPORT ${PROJECT_NAME}-targets
+        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
