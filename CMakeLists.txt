@@ -160,7 +160,7 @@ if(UMF_FORMAT_CODE_STYLE)
 endif()
 
 # Add license to the installation path
-install(FILES ${CMAKE_SOURCE_DIR}/LICENSE.TXT
+install(FILES ${PROJECT_SOURCE_DIR}/LICENSE.TXT
         DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/doc/${PROJECT_NAME}/")
 
 # Add the list of installed targets to the install. This includes the namespace
