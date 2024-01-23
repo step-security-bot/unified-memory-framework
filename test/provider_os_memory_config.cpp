@@ -48,9 +48,9 @@ struct providerConfigTest : testing::Test {
         }
     }
 
-    void create_provider(umf_os_memory_provider_params_t *params) {
-        auto res = umfMemoryProviderCreate(&UMF_OS_MEMORY_PROVIDER_OPS, params,
-                                           &provider);
+    void create_provider(umf_os_memory_provider_params_t *inParams) {
+        auto res = umfMemoryProviderCreate(&UMF_OS_MEMORY_PROVIDER_OPS,
+                                           inParams, &provider);
         ASSERT_EQ(res, UMF_RESULT_SUCCESS);
         ASSERT_NE(provider, nullptr);
     }

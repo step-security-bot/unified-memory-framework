@@ -892,7 +892,6 @@ std::size_t DisjointPool::AllocImpl::sizeToIdx(size_t Size) {
 
 Bucket &DisjointPool::AllocImpl::findBucket(size_t Size) {
     auto calculatedIdx = sizeToIdx(Size);
-    assert(calculatedIdx >= 0);
     assert((*(Buckets[calculatedIdx])).getSize() >= Size);
     if (calculatedIdx > 0) {
         assert((*(Buckets[calculatedIdx - 1])).getSize() < Size);

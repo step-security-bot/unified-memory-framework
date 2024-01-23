@@ -89,23 +89,21 @@ static enum umf_result_t mallocPurgeForce(void *provider, void *ptr,
 }
 
 static enum umf_result_t mallocAllocSplit(void *provider, void *ptr,
-                                          size_t size1, size_t size2) {
+                                          size_t totalSize, size_t firstSize) {
     (void)provider;
     (void)ptr;
-    (void)size1;
-    (void)size2;
+    (void)totalSize;
+    (void)firstSize;
 
     return UMF_RESULT_SUCCESS;
 }
 
 static enum umf_result_t mallocAllocMerge(void *provider, void *ptr1,
-                                          size_t size1, void *ptr2,
-                                          size_t size2) {
+                                          void *ptr2, size_t totalSize) {
     (void)provider;
     (void)ptr1;
-    (void)size1;
     (void)ptr2;
-    (void)size2;
+    (void)totalSize;
 
     return UMF_RESULT_SUCCESS;
 }
@@ -126,9 +124,9 @@ struct umf_memory_provider_ops_t UMF_MALLOC_MEMORY_PROVIDER_OPS = {
     mallocGetPageSize,
     mallocPurgeLazy,
     mallocPurgeForce,
+    mallocName,
     mallocAllocSplit,
     mallocAllocMerge,
-    mallocName,
 };
 
 TEST_F(test, disjointCoarseMallocPool_basic) {
@@ -164,7 +162,8 @@ TEST_F(test, disjointCoarseMallocPool_basic) {
 
     umf_memory_pool_handle_t pool;
     umfPoolCreate(&UMF_DISJOINT_POOL_OPS, coarse_memory_provider,
-                  &disjoint_memory_pool_params, &pool);
+                  &disjoint_memory_pool_params, UMF_POOL_CREATE_FLAG_NONE,
+                  &pool);
     ASSERT_NE(pool, nullptr);
 
     // test
@@ -329,7 +328,8 @@ TEST_F(test, disjointCoarseMallocPool_simple1) {
 
     umf_memory_pool_handle_t pool;
     umfPoolCreate(&UMF_DISJOINT_POOL_OPS, coarse_memory_provider,
-                  &disjoint_memory_pool_params, &pool);
+                  &disjoint_memory_pool_params, UMF_POOL_CREATE_FLAG_NONE,
+                  &pool);
     ASSERT_NE(pool, nullptr);
 
     umf_memory_provider_handle_t prov = NULL;
@@ -418,7 +418,8 @@ TEST_F(test, disjointCoarseMallocPool_simple2) {
 
     umf_memory_pool_handle_t pool;
     umfPoolCreate(&UMF_DISJOINT_POOL_OPS, coarse_memory_provider,
-                  &disjoint_memory_pool_params, &pool);
+                  &disjoint_memory_pool_params, UMF_POOL_CREATE_FLAG_NONE,
+                  &pool);
     ASSERT_NE(pool, nullptr);
 
     // test
@@ -490,7 +491,8 @@ TEST_F(test, disjointCoarseMallocPool_random) {
 
     umf_memory_pool_handle_t pool;
     umfPoolCreate(&UMF_DISJOINT_POOL_OPS, coarse_memory_provider,
-                  &disjoint_memory_pool_params, &pool);
+                  &disjoint_memory_pool_params, UMF_POOL_CREATE_FLAG_NONE,
+                  &pool);
     ASSERT_NE(pool, nullptr);
 
     // set constant seed so each test run will have the same scenario

@@ -424,10 +424,9 @@ static block_t *free_block_merge_with_prev(
     enum umf_result_t merge_success = UMF_RESULT_ERROR_UNKNOWN;
     if (block->prev && block->prev->used == false &&
         (block->prev->data + block->prev->size == block->data)) {
-        merge_success = umfMemoryProviderAllocMerge(
-            upstream_memory_provider, block->prev->origin->data,
-            block->prev->origin->size, block->origin->data,
-            block->origin->size);
+        merge_success = umfMemoryProviderAllocationMerge(
+            upstream_memory_provider, block->prev->data, block->data,
+            block->prev->size + block->size);
     }
 
     if (merge_success == UMF_RESULT_SUCCESS) {
@@ -472,9 +471,9 @@ static block_t *free_block_merge_with_next(
     enum umf_result_t merge_success = UMF_RESULT_ERROR_UNKNOWN;
     if (block->next && block->next->used == false &&
         (block->data + block->size == block->next->data)) {
-        merge_success = umfMemoryProviderAllocMerge(
-            upstream_memory_provider, block->origin->data, block->origin->size,
-            block->next->origin->data, block->next->origin->size);
+        merge_success = umfMemoryProviderAllocationMerge(
+            upstream_memory_provider, block->data, block->next->data,
+            block->size + block->next->size);
     }
 
     if (merge_success == UMF_RESULT_SUCCESS) {
@@ -637,20 +636,18 @@ static bool debug_check(coarse_memory_provider_t *provider) {
         // if they allocs are continuous and could be merged
         if (block->prev && block->prev->used == false && block->used == false &&
             (block->prev->data + block->prev->size == block->data)) {
-            enum umf_result_t merge_success = umfMemoryProviderAllocMerge(
-                provider->upstream_memory_provider, block->prev->origin->data,
-                block->prev->origin->size, block->origin->data,
-                block->origin->size);
+            enum umf_result_t merge_success = umfMemoryProviderAllocationMerge(
+                provider->upstream_memory_provider, block->prev->data,
+                block->data, block->prev->size + block->size);
             assert(merge_success != UMF_RESULT_SUCCESS);
         }
 
         if (block->next && block->next->used == false && block->used == false &&
             (block->data + block->size == block->next->data)) {
 
-            enum umf_result_t merge_success = umfMemoryProviderAllocMerge(
-                provider->upstream_memory_provider, block->origin->data,
-                block->origin->size, block->next->origin->data,
-                block->next->origin->size);
+            enum umf_result_t merge_success = umfMemoryProviderAllocationMerge(
+                provider->upstream_memory_provider, block->data,
+                block->next->data, block->size + block->next->size);
             assert(merge_success != UMF_RESULT_SUCCESS);
         }
 
